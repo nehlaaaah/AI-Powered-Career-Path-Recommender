@@ -4,141 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AIspire - Login / Signup</title>
-    <link rel="stylesheet" href="style.css">
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #121212; /* Dark background */
-            color: #e0e0e0; /* Light text */
-            margin: 0;
-            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            font-family: Arial, sans-serif;
             opacity: 0;
             animation: fadeIn 1s forwards;
         }
-
         .container {
-            width: 100%;
-            max-width: 400px;
-            background-color: #1e1e1e; /* Dark container background */
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: center;
+            position: relative;
             opacity: 0;
             animation: fadeIn 1.5s forwards 0.5s;
         }
-
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            opacity: 0;
-            animation: fadeIn 1s forwards 1s;
-        }
-
         .logo {
             width: 100px;
             margin-bottom: 10px;
         }
-
         h1 {
-            font-size: 48px;
-            font-weight: 700;
-            color: #0091EA; /* Changed title color to a blue shade */
+            color: white;
+            margin-bottom: 10px;
             opacity: 0;
             transform: scale(0.5);
             animation: scaleUp 1s ease-out forwards 1s;
         }
-
-        .form-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .form-tab {
-            display: flex;
-            width: 100%;
-            justify-content: space-evenly;
-            margin-bottom: 20px;
-        }
-
-        .tab-button {
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #e0e0e0;
-            background-color: transparent;
-            border: 2px solid #0091EA; /* Blue border */
-            border-radius: 5px;
+        .toggle-button {
+            background: white;
+            color: #764ba2;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
             cursor: pointer;
-            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+            font-size: 14px;
+            font-weight: bold;
+            transition: transform 0.3s ease, background 0.3s ease;
+            margin-bottom: 15px;
         }
-
-        .tab-button.active {
-            background-color: #0091EA; /* Blue active button */
-            color: #ffffff;
-            border: 2px solid #0091EA;
+        .toggle-button:hover {
+            background: #ddd;
             transform: scale(1.1);
         }
-
-        .tab-button:hover {
-            background-color: #0288D1; /* Lighter blue on hover */
-            color: #ffffff;
-            transform: scale(1.05);
+        .form {
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            visibility: hidden;
+            height: 0;
+            overflow: hidden;
         }
-
-        .form input {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            background-color: #333333;
-            border: 1px solid #444444;
+        .form.active {
+            opacity: 1;
+            transform: translateY(0);
+            visibility: visible;
+            height: auto;
+            overflow: visible;
+        }
+        .form input, .form button {
+            display: block;
+            width: calc(100% - 20px);
+            margin: 10px auto;
+            padding: 10px;
             border-radius: 5px;
-            color: #e0e0e0;
-            transition: border-color 0.3s ease;
-        }
-
-        .form input::placeholder {
-            color: #b0b0b0;
-        }
-
-        .form input:focus {
-            border-color: #0091EA; /* Blue focus border */
-        }
-
-        .form button {
-            width: 100%;
-            padding: 12px;
-            background-color: #0091EA; /* Blue button */
-            color: #ffffff;
             border: none;
-            border-radius: 5px;
+        }
+        .form input {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            outline: none;
+        }
+        .form input::placeholder {
+            color: white;
+        }
+        .form button {
+            background: #0091EA;
+            color: white;
             cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-        .form button:hover {
-            background-color: #0288D1; /* Lighter blue on hover */
-            transform: scale(1.05);
-        }
-
-        .form-container p {
-            color: #bbb;
+            padding: 8px;
             font-size: 14px;
+            width: 80%;
+            transition: transform 0.3s ease, background 0.3s ease;
         }
-
-        .form-container a {
-            color: #0091EA; /* Blue link color */
-            text-decoration: none;
+        .form button:hover {
+            background: #0288D1;
+            transform: scale(1.1);
         }
-
-        .form-container a:hover {
-            text-decoration: underline;
-        }
-
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -147,7 +106,6 @@
                 opacity: 1;
             }
         }
-
         @keyframes scaleUp {
             from {
                 opacity: 0;
@@ -158,7 +116,6 @@
                 transform: scale(1);
             }
         }
-
     </style>
 </head>
 <body>
@@ -167,92 +124,34 @@
             <img src="https://cdn.dribbble.com/userupload/25788686/file/original-f8eb5d85e91daafe2f8b8accb448ffcf.png?resize=1504x1128&vertical=center" alt="AIspire Logo" class="logo">
             <h1>AIspire</h1>
         </header>
-        <main>
-            <div class="form-container">
-                <div class="form-tab">
-                    <button class="tab-button active" id="login-tab" onclick="switchTab('login')">Login</button>
-                    <button class="tab-button" id="signup-tab" onclick="switchTab('signup')">Sign Up</button>
-                </div>
-
-                <!-- Login Form -->
-                <form id="login-form" class="form" onsubmit="handleLogin(event)">
-                    <input type="text" id="login-email" placeholder="Email" required>
-                    <input type="password" id="login-password" placeholder="Password" required>
-                    <button type="submit">Login</button>
-                </form>
-
-                <!-- Signup Form -->
-                <form id="signup-form" class="form" style="display: none;" onsubmit="handleSignup(event)">
-                    <input type="text" id="signup-name" placeholder="Full Name" required>
-                    <input type="email" id="signup-email" placeholder="Email" required>
-                    <input type="password" id="signup-password" placeholder="Password" required>
-                    <button type="submit">Sign Up</button>
-                </form>
-            </div>
-        </main>
+        <button id="toggle-button" class="toggle-button">Signup?</button>
+        <div class="form-container">
+            <form id="login-form" class="form active">
+                <input type="text" id="login-email" placeholder="Email" required>
+                <input type="password" id="login-password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+            <form id="signup-form" class="form">
+                <input type="text" id="signup-name" placeholder="Full Name" required>
+                <input type="email" id="signup-email" placeholder="Email" required>
+                <input type="password" id="signup-password" placeholder="Password" required>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
     </div>
 
     <script>
-        // Function to switch between login and signup forms
-        function switchTab(tab) {
-            if (tab === 'login') {
-                document.getElementById('login-form').style.display = 'block';
-                document.getElementById('signup-form').style.display = 'none';
-                document.getElementById('login-tab').classList.add('active');
-                document.getElementById('signup-tab').classList.remove('active');
-            } else {
-                document.getElementById('login-form').style.display = 'none';
-                document.getElementById('signup-form').style.display = 'block';
-                document.getElementById('signup-tab').classList.add('active');
-                document.getElementById('login-tab').classList.remove('active');
-            }
+        const toggleButton = document.getElementById('toggle-button');
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+
+        function toggleForms() {
+            loginForm.classList.toggle('active');
+            signupForm.classList.toggle('active');
+            toggleButton.textContent = loginForm.classList.contains('active') ? 'Signup?' : 'Login?';
         }
 
-        // Function to handle login form submission
-        function handleLogin(event) {
-            event.preventDefault(); // Prevent form submission
-
-            // Get the login form data
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-
-            // Define valid login credentials (hardcoded for demo purposes)
-            const validCredentials = [
-                { email: 'test@example.com', password: 'password123' }, 
-                { email: 'user@ai.com', password: 'ai1234' }
-            ];
-
-            // Check if email and password match any valid credentials
-            const validLogin = validCredentials.some(cred => cred.email === email && cred.password === password);
-
-            if (validLogin) {
-                // Redirect to the dashboard page
-                window.location.href = 'dashboard.html';
-            } else {
-                alert('Invalid login credentials');
-            }
-        }
-
-        // Function to handle signup form submission
-        function handleSignup(event) {
-            event.preventDefault(); // Prevent form submission
-
-            // Get the signup form data
-            const name = document.getElementById('signup-name').value;
-            const email = document.getElementById('signup-email').value;
-            const password = document.getElementById('signup-password').value;
-
-            // Here you would typically send this data to your server
-            alert('Signup successful! Please login.');
-
-            // After signup, switch to the login form
-            switchTab('login');
-        }
-
-        // Initialize the first tab to be the login tab
-        window.onload = function() {
-            switchTab('login');
-        };
+        toggleButton.addEventListener('click', toggleForms);
     </script>
 </body>
 </html>
