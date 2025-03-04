@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIspire - Login / Signup</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="https://cdn.dribbble.com/userupload/25788686/file/original-f8eb5d85e91daafe2f8b8accb448ffcf.png?resize=1504x1128&vertical=center" alt="AIspire Logo" class="logo">
+            <h1>AIspire</h1>
+        </header>
+        <main>
+            <div class="form-container">
+                <div class="form-tab">
+                    <button class="tab-button active" id="login-tab" onclick="switchTab('login')">Login</button>
+                    <button class="tab-button" id="signup-tab" onclick="switchTab('signup')">Sign Up</button>
+                </div>
+
+                <!-- Login Form -->
+                <form id="login-form" class="form">
+                    <input type="text" id="login-email" placeholder="Email" required>
+                    <input type="password" id="login-password" placeholder="Password" required>
+                    <button type="submit">Login</button>
+                </form>
+
+                <!-- Signup Form -->
+                <form id="signup-form" class="form" style="display: none;">
+                    <input type="text" id="signup-name" placeholder="Full Name" required>
+                    <input type="email" id="signup-email" placeholder="Email" required>
+                    <input type="password" id="signup-password" placeholder="Password" required>
+                    <button type="submit">Sign Up</button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
