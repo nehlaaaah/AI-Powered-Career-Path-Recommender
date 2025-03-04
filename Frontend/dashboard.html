@@ -5,6 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AIspire - Dashboard</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Add transition for smooth animation */
+        .recommendation-result {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .recommendation-result.show {
+            display: block;
+            opacity: 1;
+        }
+
+        .ai-logo {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
     <div class="dashboard-container">
@@ -37,10 +69,13 @@
                 <option value="senior-level">Senior Level</option>
             </select>
 
-            <button onclick="showRecommendation()">Get Recommendation</button>
+            <!-- AI Generate Button -->
+            <button onclick="generateAIRecommendation()">
+                <img src="https://img.icons8.com/ios/50/000000/artificial-intelligence.png" alt="AI Logo" class="ai-logo"> AI Generate
+            </button>
 
-            <div id="recommendation-result" class="recommendation-result" style="display: none;">
-                <p>Your career recommendation will be displayed here.</p>
+            <div id="recommendation-result" class="recommendation-result">
+                <p>Your AI-generated career recommendation will be displayed here.</p>
             </div>
         </div>
     </div>
@@ -92,15 +127,21 @@
             });
         }
 
-        // Function to display career recommendation (for demonstration)
-        function showRecommendation() {
+        // Function to generate AI-powered recommendation with animation
+        function generateAIRecommendation() {
             const department = document.getElementById("department-select").value;
             const domain = document.getElementById("domain-select").value;
             const level = document.getElementById("level-select").value;
 
             const recommendation = document.getElementById("recommendation-result");
-            recommendation.style.display = "block";
-            recommendation.innerHTML = `<p>Your career recommendation: ${department} → ${domain} → ${level}</p>`;
+
+            // Add class to trigger transition effect
+            recommendation.classList.add("show");
+
+            // Simulate AI recommendation process with a slight delay
+            setTimeout(() => {
+                recommendation.innerHTML = `<p>Your AI-generated career recommendation: <strong>${department}</strong> → <strong>${domain}</strong> → <strong>${level}</strong></p>`;
+            }, 1000); // Simulate AI processing delay
         }
 
         // Initialize domains on page load
