@@ -7,8 +7,8 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #fff;
-    color: #333;
+    background-color: #007bff; /* Changed background to blue */
+    color: #fff;
 }
 
 .container, .dashboard-container {
@@ -32,7 +32,7 @@ header .logo {
 
 header h1 {
     font-size: 2rem;
-    color: #000;
+    color: #ffcccb;
 }
 
 /* Login and Sign-Up Forms */
@@ -50,7 +50,7 @@ header h1 {
 
 .tab-button {
     background-color: transparent;
-    border: 2px solid #000;
+    border: 2px solid #e83e3e;
     padding: 10px 20px;
     font-size: 1rem;
     cursor: pointer;
@@ -66,7 +66,13 @@ header h1 {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
-    border: 1px solid #ddd;
+    border: 1px solid #0056b3; /* Changed field border color to blue */
+    background-color: #3399ff; /* Changed field background to blue */
+    color: #fff;
+}
+
+.form input::placeholder {
+    color: #f0f8ff; /* Light blue placeholder text */
 }
 
 .form button {
@@ -89,7 +95,9 @@ select {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
-    border: 1px solid #ddd;
+    border: 1px solid #0056b3;
+    background-color: #3399ff;
+    color: #fff;
 }
 
 button {
@@ -105,8 +113,8 @@ button {
 .recommendation-result {
     margin-top: 20px;
     padding: 20px;
-    background-color: #f0f0f0;
+    background-color: #3399ff;
     border-radius: 5px;
     font-size: 1.1rem;
-    color: #333;
+    color: #fff;
 }
