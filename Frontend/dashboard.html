@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AIspire Dashboard</title>
     <style>
-        /* Centering the entire dashboard */
         body {
             display: flex;
             justify-content: center;
@@ -14,7 +13,6 @@
             margin: 0;
             background-color: #f4f4f4;
         }
-
         .dashboard-container {
             text-align: center;
             background: white;
@@ -23,30 +21,13 @@
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             width: 50%;
         }
-
-        .logo {
-            width: 150px;
-            margin-bottom: 10px;
-        }
-
-        .menu {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
-
         select {
             width: 80%;
             padding: 10px;
             margin: 10px 0;
             font-size: 16px;
         }
-
         .ai-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
             background-color: #4CAF50;
             color: white;
             border: none;
@@ -54,20 +35,8 @@
             font-size: 16px;
             cursor: pointer;
             border-radius: 5px;
-            transition: background-color 0.3s ease;
             margin-top: 15px;
         }
-
-        .ai-button img {
-            width: 20px;
-            height: 20px;
-            margin-right: 8px;
-        }
-
-        .ai-button:hover {
-            background-color: #45a049;
-        }
-
         #recommendation-result {
             margin-top: 20px;
             font-size: 18px;
@@ -77,100 +46,122 @@
 </head>
 <body>
     <div class="dashboard-container">
-        <header>
-            <img src="https://cdn.dribbble.com/userupload/25788686/file/original-f8eb5d85e91daafe2f8b8accb448ffcf.png?resize=1504x1128&vertical=center" 
-                alt="AIspire Logo" class="logo">
-            <h1>Welcome to AIspire</h1>
-        </header>
+        <h1>Welcome to AIspire</h1>
 
-        <div class="menu">
-            <h2>Select B.Tech Stream</h2>
-            <select id="btech-select" onchange="updateDomains()">
-                <option value="computer-science">Computer Science Engineering</option>
-                <option value="mechanical">Mechanical Engineering</option>
-                <option value="civil">Civil Engineering</option>
-                <option value="electrical">Electrical Engineering</option>
-                <option value="automobile">Automobile Engineering</option>
-                <option value="electronics">Electronics Engineering</option>
-                <option value="biotech">Biotechnology</option>
-            </select>
+        <h2>Select Higher Secondary Education</h2>
+        <select id="higher-secondary-select" onchange="updateEducationStreams()">
+            <option value="science">Science (PCM/PCB)</option>
+            <option value="commerce">Commerce</option>
+            <option value="humanities">Humanities/Arts</option>
+            <option value="vocational">Vocational Studies</option>
+        </select>
 
-            <h2>Select Specialization</h2>
-            <select id="domain-select">
-                <!-- Specialization options will be dynamically updated -->
-            </select>
+        <h2>Select Further Education Stream</h2>
+        <select id="education-stream-select" onchange="updateSpecializations()">
+            <!-- Options will be dynamically updated -->
+        </select>
 
-            <h2>Select Level</h2>
-            <select id="level-select">
-                <option value="beginner">Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="advanced">Advanced</option>
-            </select>
+        <h2>Select Specialization</h2>
+        <select id="specialization-select">
+            <!-- Specializations will be dynamically updated -->
+        </select>
 
-            <!-- AI Generate Button with AI Icon -->
-            <button class="ai-button" onclick="showRecommendation()">
-                <img src="https://cdn-icons-png.flaticon.com/512/4712/4712037.png" alt="AI Icon">
-                AI Generate
-            </button>
-
-            <div id="recommendation-result" style="display:none;"></div>
-        </div>
+        <button class="ai-button" onclick="showRecommendation()">AI Generate</button>
+        <div id="recommendation-result" style="display:none;"></div>
     </div>
 
     <script>
-        function updateDomains() {
-            const btechSelect = document.getElementById("btech-select");
-            const domainSelect = document.getElementById("domain-select");
-            const selectedBtech = btechSelect.value;
+        function updateEducationStreams() {
+            const hsSelect = document.getElementById("higher-secondary-select");
+            const educationSelect = document.getElementById("education-stream-select");
+            const selectedHS = hsSelect.value;
 
-            let domains = [];
+            let educationStreams = [];
 
-            switch (selectedBtech) {
-                case "computer-science":
-                    domains = ["Software Development", "Artificial Intelligence", "Cybersecurity", "Cloud Computing"];
+            switch (selectedHS) {
+                case "science":
+                    educationStreams = ["B.Tech (Engineering)", "B.Sc (Science)", "MBBS (Medical)", "BDS (Dental Science)", "B.Pharm (Pharmacy)", "B.Arch (Architecture)"];
                     break;
-                case "mechanical":
-                    domains = ["Thermodynamics", "Fluid Mechanics", "Machine Design", "Manufacturing Processes"];
+                case "commerce":
+                    educationStreams = ["B.Com (Commerce)", "BBA (Business Administration)", "CA (Chartered Accountancy)", "CS (Company Secretary)", "Economics (Hons)"];
                     break;
-                case "civil":
-                    domains = ["Structural Engineering", "Geotechnical Engineering", "Water Resources", "Transportation Engineering"];
+                case "humanities":
+                    educationStreams = ["B.A (Arts & Humanities)", "LLB (Law)", "Psychology", "Mass Communication", "Sociology"];
                     break;
-                case "electrical":
-                    domains = ["Power Systems", "Electronics", "Control Systems", "Embedded Systems"];
-                    break;
-                case "automobile":
-                    domains = ["Automotive Engineering", "Vehicle Dynamics", "Automotive Design", "Automotive Electronics"];
-                    break;
-                case "electronics":
-                    domains = ["Embedded Systems", "Signal Processing", "Robotics", "VLSI Design"];
-                    break;
-                case "biotech":
-                    domains = ["Genetic Engineering", "Pharmaceutical Biotechnology", "Bioprocess Engineering", "Environmental Biotechnology"];
+                case "vocational":
+                    educationStreams = ["B.Des (Fashion & Design)", "Animation & Multimedia", "Hotel Management", "Event Management", "Game Development"];
                     break;
                 default:
-                    domains = [];
+                    educationStreams = [];
             }
 
-            domainSelect.innerHTML = "";
-            domains.forEach(domain => {
+            educationSelect.innerHTML = "";
+            educationStreams.forEach(stream => {
                 const option = document.createElement("option");
-                option.value = domain.toLowerCase().replace(/ /g, "-");
-                option.textContent = domain;
-                domainSelect.appendChild(option);
+                option.value = stream.toLowerCase().replace(/ /g, "-");
+                option.textContent = stream;
+                educationSelect.appendChild(option);
+            });
+
+            updateSpecializations(); // Update specializations based on the first available education stream
+        }
+
+        function updateSpecializations() {
+            const educationSelect = document.getElementById("education-stream-select");
+            const specializationSelect = document.getElementById("specialization-select");
+            const selectedStream = educationSelect.value;
+
+            let specializations = [];
+
+            switch (selectedStream) {
+                case "btech-engineering":
+                    specializations = ["Computer Science", "Mechanical", "Civil", "Electrical", "Electronics"];
+                    break;
+                case "bsc-science":
+                    specializations = ["Physics", "Chemistry", "Mathematics", "Biotechnology"];
+                    break;
+                case "mbbs-medical":
+                    specializations = ["General Medicine", "Pediatrics", "Surgery"];
+                    break;
+                case "bcom-commerce":
+                    specializations = ["Accounting", "Finance", "Marketing"];
+                    break;
+                case "bba-business-administration":
+                    specializations = ["HR Management", "Entrepreneurship", "International Business"];
+                    break;
+                case "ba-arts-humanities":
+                    specializations = ["History", "Political Science", "Literature"];
+                    break;
+                case "llb-law":
+                    specializations = ["Corporate Law", "Criminal Law", "International Law"];
+                    break;
+                case "bdes-fashion-design":
+                    specializations = ["Fashion Design", "Textile Design", "Graphic Design"];
+                    break;
+                default:
+                    specializations = ["General"];
+            }
+
+            specializationSelect.innerHTML = "";
+            specializations.forEach(specialization => {
+                const option = document.createElement("option");
+                option.value = specialization.toLowerCase().replace(/ /g, "-");
+                option.textContent = specialization;
+                specializationSelect.appendChild(option);
             });
         }
 
         function showRecommendation() {
-            const btech = document.getElementById("btech-select").value;
-            const domain = document.getElementById("domain-select").value;
-            const level = document.getElementById("level-select").value;
+            const hs = document.getElementById("higher-secondary-select").value;
+            const educationStream = document.getElementById("education-stream-select").value;
+            const specialization = document.getElementById("specialization-select").value;
 
             const recommendation = document.getElementById("recommendation-result");
             recommendation.style.display = "block";
-            recommendation.innerHTML = `<p>Your career recommendation: ${btech} → ${domain} → ${level}</p>`;
+            recommendation.innerHTML = `<p>Your career recommendation: ${hs} → ${educationStream} → ${specialization}</p>`;
         }
 
-        window.onload = updateDomains;
+        window.onload = updateEducationStreams;
     </script>
 </body>
 </html>
