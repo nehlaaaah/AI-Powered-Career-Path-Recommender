@@ -57,14 +57,10 @@
         </select>
 
         <h2>Select Further Education Stream</h2>
-        <select id="education-stream-select" onchange="updateSpecializations()">
-            <!-- Options will be dynamically updated -->
-        </select>
+        <select id="education-stream-select" onchange="updateBranches()"></select>
 
-        <h2>Select Specialization</h2>
-        <select id="specialization-select">
-            <!-- Specializations will be dynamically updated -->
-        </select>
+        <h2>Select Specific Branch for Further Education</h2>
+        <select id="branch-select"></select>
 
         <button class="ai-button" onclick="showRecommendation()">AI Generate</button>
         <div id="recommendation-result" style="display:none;"></div>
@@ -76,89 +72,59 @@
             const educationSelect = document.getElementById("education-stream-select");
             const selectedHS = hsSelect.value;
 
-            let educationStreams = [];
-
-            switch (selectedHS) {
-                case "science":
-                    educationStreams = ["B.Tech (Engineering)", "B.Sc (Science)", "MBBS (Medical)", "BDS (Dental Science)", "B.Pharm (Pharmacy)", "B.Arch (Architecture)"];
-                    break;
-                case "commerce":
-                    educationStreams = ["B.Com (Commerce)", "BBA (Business Administration)", "CA (Chartered Accountancy)", "CS (Company Secretary)", "Economics (Hons)"];
-                    break;
-                case "humanities":
-                    educationStreams = ["B.A (Arts & Humanities)", "LLB (Law)", "Psychology", "Mass Communication", "Sociology"];
-                    break;
-                case "vocational":
-                    educationStreams = ["B.Des (Fashion & Design)", "Animation & Multimedia", "Hotel Management", "Event Management", "Game Development"];
-                    break;
-                default:
-                    educationStreams = [];
-            }
+            const educationStreams = {
+                "science": ["btech-engineering", "bsc-science", "mbbs-medical", "bds-dental-science", "bpharm-pharmacy", "barch-architecture"],
+                "commerce": ["bcom-commerce", "bba-business-administration", "ca-chartered-accountancy", "cs-company-secretary", "economics-hons"],
+                "humanities": ["ba-arts-humanities", "llb-law", "psychology", "mass-communication", "sociology"],
+                "vocational": ["bdes-fashion-design", "animation-multimedia", "hotel-management", "event-management", "game-development"]
+            };
 
             educationSelect.innerHTML = "";
-            educationStreams.forEach(stream => {
+            educationStreams[selectedHS].forEach(stream => {
                 const option = document.createElement("option");
-                option.value = stream.toLowerCase().replace(/ /g, "-");
-                option.textContent = stream;
+                option.value = stream;
+                option.textContent = stream.replace(/-/g, " ").toUpperCase();
                 educationSelect.appendChild(option);
             });
 
-            updateSpecializations(); // Update specializations based on the first available education stream
+            updateBranches();
         }
 
-        function updateSpecializations() {
+        function updateBranches() {
             const educationSelect = document.getElementById("education-stream-select");
-            const specializationSelect = document.getElementById("specialization-select");
+            const branchSelect = document.getElementById("branch-select");
             const selectedStream = educationSelect.value;
 
-            let specializations = [];
+            const branchesData = {
+                "btech-engineering": ["Computer Science", "Mechanical", "Civil", "Electrical", "Electronics", "IT"],
+                "bsc-science": ["Physics", "Chemistry", "Biotechnology"],
+                "mbbs-medical": ["General Medicine", "Surgery", "Pediatrics"],
+                "bcom-commerce": ["Accounting", "Finance", "Marketing"],
+                "bba-business-administration": ["HR Management", "Entrepreneurship", "International Business"],
+                "ba-arts-humanities": ["History", "Political Science", "Literature"],
+                "llb-law": ["Corporate Law", "Criminal Law", "International Law"],
+                "bdes-fashion-design": ["Fashion Design", "Textile Design", "Graphic Design"]
+            };
 
-            switch (selectedStream) {
-                case "btech-engineering":
-                    specializations = ["Computer Science", "Mechanical", "Civil", "Electrical", "Electronics"];
-                    break;
-                case "bsc-science":
-                    specializations = ["Physics", "Chemistry", "Mathematics", "Biotechnology"];
-                    break;
-                case "mbbs-medical":
-                    specializations = ["General Medicine", "Pediatrics", "Surgery"];
-                    break;
-                case "bcom-commerce":
-                    specializations = ["Accounting", "Finance", "Marketing"];
-                    break;
-                case "bba-business-administration":
-                    specializations = ["HR Management", "Entrepreneurship", "International Business"];
-                    break;
-                case "ba-arts-humanities":
-                    specializations = ["History", "Political Science", "Literature"];
-                    break;
-                case "llb-law":
-                    specializations = ["Corporate Law", "Criminal Law", "International Law"];
-                    break;
-                case "bdes-fashion-design":
-                    specializations = ["Fashion Design", "Textile Design", "Graphic Design"];
-                    break;
-                default:
-                    specializations = ["General"];
-            }
+            const branches = branchesData[selectedStream] || ["General"];
 
-            specializationSelect.innerHTML = "";
-            specializations.forEach(specialization => {
+            branchSelect.innerHTML = "";
+            branches.forEach(branch => {
                 const option = document.createElement("option");
-                option.value = specialization.toLowerCase().replace(/ /g, "-");
-                option.textContent = specialization;
-                specializationSelect.appendChild(option);
+                option.value = branch.toLowerCase().replace(/ /g, "-");
+                option.textContent = branch;
+                branchSelect.appendChild(option);
             });
         }
 
         function showRecommendation() {
             const hs = document.getElementById("higher-secondary-select").value;
             const educationStream = document.getElementById("education-stream-select").value;
-            const specialization = document.getElementById("specialization-select").value;
+            const branch = document.getElementById("branch-select").value;
 
             const recommendation = document.getElementById("recommendation-result");
             recommendation.style.display = "block";
-            recommendation.innerHTML = `<p>Your career recommendation: ${hs} → ${educationStream} → ${specialization}</p>`;
+            recommendation.innerHTML = `<p>Your career recommendation: ${hs.toUpperCase()} → ${educationStream.replace(/-/g, " ").toUpperCase()} → ${branch.replace(/-/g, " ").toUpperCase()}</p>`;
         }
 
         window.onload = updateEducationStreams;
