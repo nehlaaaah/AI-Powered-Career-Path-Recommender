@@ -4,24 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AIspire Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <style>
-        /* Global Styles */
+        /* Full-Screen Galaxy Background */
         body {
+            background-color: #000;
             font-family: 'Roboto', sans-serif;
+            color: white;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #121212;
-            color: #e0e0e0;
-            opacity: 0;
-            animation: fadeIn 1s forwards;
+            overflow: hidden;
+            position: relative;
+            text-align: center;
         }
 
+        /* Animated Starry Sky */
+        .stars, .stars2, .stars3 {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+            animation: moveStars 50s linear infinite;
+        }
+
+        .stars2 {
+            animation-duration: 100s;
+            opacity: 0.6;
+        }
+
+        .stars3 {
+            animation-duration: 150s;
+            opacity: 0.3;
+        }
+
+        /* Rotating Nebula Effect */
+        .nebula {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(128, 0, 128, 0.3), transparent);
+            animation: rotateNebula 40s linear infinite;
+        }
+
+        /* Container for dashboard content */
         .dashboard-container {
             text-align: center;
-            background: #1e1e1e;
+            background: rgba(30, 30, 30, 0.8);  /* Slight transparent background for dashboard */
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
@@ -31,6 +67,7 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-end; /* Align the form elements to the bottom */
+            z-index: 2;
         }
 
         h1, h2 {
@@ -96,15 +133,6 @@
         }
 
         /* Animation Keyframes */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
         @keyframes slideUp {
             from {
                 transform: translateY(50px);
@@ -114,6 +142,19 @@
                 transform: translateY(0);
                 opacity: 1;
             }
+        }
+
+        /* Star movement animation */
+        @keyframes moveStars {
+            from { background-position: 0 0; }
+            to { background-position: 1000px 1000px; }
+        }
+
+        /* Rotating nebula effect */
+        @keyframes rotateNebula {
+            0% { transform: rotate(0deg) scale(1); opacity: 0.4; }
+            50% { transform: rotate(180deg) scale(1.2); opacity: 0.6; }
+            100% { transform: rotate(360deg) scale(1); opacity: 0.4; }
         }
 
         /* Responsive Adjustments */
@@ -146,6 +187,13 @@
     </style>
 </head>
 <body>
+    <!-- Background Elements -->
+    <div class="stars"></div>
+    <div class="stars2"></div>
+    <div class="stars3"></div>
+    <div class="nebula"></div>
+
+    <!-- Main Dashboard Container -->
     <div class="dashboard-container">
         <h1>Welcome to AIspire</h1>
 
