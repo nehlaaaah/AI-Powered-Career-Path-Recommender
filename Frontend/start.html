@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIspire - Welcome</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* Full-Screen Galaxy Background */
+        body {
+            background-color: #000;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+            text-align: center;
+        }
+
+        /* Animated Starry Sky */
+        .stars, .stars2, .stars3 {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+            animation: moveStars 50s linear infinite;
+        }
+
+        .stars2 {
+            animation-duration: 100s;
+            opacity: 0.6;
+        }
+
+        .stars3 {
+            animation-duration: 150s;
+            opacity: 0.3;
+        }
+
+        /* Rotating Nebula Effect */
+        .nebula {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(128, 0, 128, 0.3), transparent);
+            animation: rotateNebula 40s linear infinite;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            animation: fadeInText 2s ease-in forwards;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 64px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: glowText 2s ease-in forwards 1.5s;
+            background: linear-gradient(90deg, #0ff, #0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .motto {
+            font-size: 22px;
+            font-weight: 300;
+            margin-top: 10px;
+            opacity: 0;
+            animation: fadeInText 2s ease-in forwards 2s;
+            color: #ffffff;
+        }
+
+        /* Centered Button with Matching Color */
+        .arrow-btn {
+            margin-top: 40px;
+            padding: 14px 40px;
+            font-size: 22px;
+            font-weight: bold;
+            background: linear-gradient(90deg, #0ff, #0f0);
+            color: black;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInArrow 1.5s ease-in forwards 3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            box-shadow: 0px 0px 15px #0ff;
+            text-transform: uppercase;
+        }
+
+        .arrow-btn:hover {
+            background: linear-gradient(90deg, #0f0, #0ff);
+            transform: scale(1.1);
+            box-shadow: 0px 0px 25px #0ff;
+        }
+
+        .arrow-btn span {
+            font-size: 24px;
+        }
+
+        /* Animations */
+        @keyframes fadeInText {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes glowText {
+            from { opacity: 0; text-shadow: none; }
+            to { opacity: 1; text-shadow: 0px 0px 30px #0ff; }
+        }
+
+        @keyframes fadeInArrow {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Star movement animation */
+        @keyframes moveStars {
+            from { background-position: 0 0; }
+            to { background-position: 1000px 1000px; }
+        }
+
+        /* Rotating nebula effect */
+        @keyframes rotateNebula {
+            0% { transform: rotate(0deg) scale(1); opacity: 0.4; }
+            50% { transform: rotate(180deg) scale(1.2); opacity: 0.6; }
+            100% { transform: rotate(360deg) scale(1); opacity: 0.4; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="stars2"></div>
+    <div class="stars3"></div>
+    <div class="nebula"></div>
+
+    <div class="container">
+        <h1>AIspire</h1>
+        <p class="motto">"Guiding you to your perfect career path."</p>
+        <button class="arrow-btn" onclick="location.href='index.html'">
+            Start Exploring <span>&#x2192;</span>
+        </button>
+    </div>
+</body>
+</html>
