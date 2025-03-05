@@ -5,55 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AIspire - Login / Signup</title>
     <style>
+        /* Full-Screen Galaxy Background */
         body {
+            background-color: #000;
+            font-family: Arial, sans-serif;
+            color: white;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            font-family: Arial, sans-serif;
-            opacity: 0;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
             animation: fadeIn 1s forwards;
         }
+
+        /* Starry Background */
+        .stars, .stars2, .stars3 {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+            animation: moveStars 50s linear infinite;
+        }
+
+        .stars2 {
+            animation-duration: 100s;
+            opacity: 0.6;
+        }
+
+        .stars3 {
+            animation-duration: 150s;
+            opacity: 0.3;
+        }
+
+        /* Glassmorphic Container */
         .container {
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
             width: 350px;
             text-align: center;
             position: relative;
             opacity: 0;
             animation: fadeIn 1.5s forwards 0.5s;
         }
+
         .logo {
             width: 100px;
             margin-bottom: 10px;
         }
+
         h1 {
-            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(90deg, #0ff, #8a2be2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 10px;
             opacity: 0;
             transform: scale(0.5);
             animation: scaleUp 1s ease-out forwards 1s;
         }
+
+        /* Toggle Button */
         .toggle-button {
-            background: white;
-            color: #764ba2;
+            background: linear-gradient(90deg, #0ff, #8a2be2);
+            color: black;
             border: none;
-            padding: 8px 15px;
+            padding: 10px 20px;
             border-radius: 20px;
             cursor: pointer;
             font-size: 14px;
             font-weight: bold;
             transition: transform 0.3s ease, background 0.3s ease;
             margin-bottom: 15px;
+            box-shadow: 0px 0px 10px #0ff;
         }
+
         .toggle-button:hover {
-            background: #ddd;
+            background: linear-gradient(90deg, #8a2be2, #0ff);
             transform: scale(1.1);
+            box-shadow: 0px 0px 20px #0ff;
         }
+
+        /* Form */
         .form {
             opacity: 0;
             transform: translateY(-20px);
@@ -62,6 +102,7 @@
             height: 0;
             overflow: hidden;
         }
+
         .form.active {
             opacity: 1;
             transform: translateY(0);
@@ -69,56 +110,70 @@
             height: auto;
             overflow: visible;
         }
+
         .form input, .form button {
             display: block;
             width: calc(100% - 20px);
             margin: 10px auto;
-            padding: 10px;
+            padding: 12px;
             border-radius: 5px;
             border: none;
         }
+
+        /* Input Fields */
         .form input {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.2);
             color: white;
             outline: none;
+            text-align: center;
+            font-size: 16px;
         }
+
         .form input::placeholder {
             color: white;
+            opacity: 0.7;
         }
+
+        /* Submit Buttons */
         .form button {
-            background: #0091EA;
-            color: white;
+            background: linear-gradient(90deg, #0ff, #8a2be2);
+            color: black;
             cursor: pointer;
-            padding: 8px;
-            font-size: 14px;
-            width: 80%;
+            font-size: 16px;
+            font-weight: bold;
             transition: transform 0.3s ease, background 0.3s ease;
+            box-shadow: 0px 0px 10px #0ff;
         }
+
         .form button:hover {
-            background: #0288D1;
+            background: linear-gradient(90deg, #8a2be2, #0ff);
             transform: scale(1.1);
+            box-shadow: 0px 0px 20px #0ff;
         }
+
+        /* Animations */
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
+
         @keyframes scaleUp {
-            from {
-                opacity: 0;
-                transform: scale(0.5);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes moveStars {
+            from { background-position: 0 0; }
+            to { background-position: 1000px 1000px; }
         }
     </style>
 </head>
 <body>
+    <!-- Starry Background -->
+    <div class="stars"></div>
+    <div class="stars2"></div>
+    <div class="stars3"></div>
+
     <div class="container">
         <header>
             <img src="https://cdn.dribbble.com/userupload/25788686/file/original-f8eb5d85e91daafe2f8b8accb448ffcf.png?resize=1504x1128&vertical=center" alt="AIspire Logo" class="logo">
