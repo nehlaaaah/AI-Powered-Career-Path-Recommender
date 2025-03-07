@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AIspire - Login / Signup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
     <style>
         /* Full-Screen Galaxy Background */
         body {
@@ -41,18 +42,51 @@
             opacity: 0.3;
         }
 
+        /* Fixed Header */
+        .header {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        /* Site Title */
+        .site-title {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            color: #800000; /* Maroon color */
+            font-weight: 700;
+            z-index: 1000;
+        }
+
+        /* Site Motto */
+        .site-moto {
+            position: fixed;
+            top: 60px; /* Adjusted to position below the title */
+            left: 20px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.2rem;
+            color: #fff; /* White color */
+            font-weight: 400;
+            z-index: 1000;
+        }
+
         /* Glassmorphic Container */
         .container {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(15px);
             padding: 20px;
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(187, 7, 7, 0.3);
             width: 350px;
             text-align: center;
             position: relative;
             opacity: 0;
             animation: fadeIn 1.5s forwards 0.5s;
+            margin-top: 120px; /* Adjust for fixed header space */
         }
 
         .logo {
@@ -63,7 +97,7 @@
         h1 {
             font-size: 28px;
             font-weight: bold;
-            background: linear-gradient(90deg, #0ff, #8a2be2);
+            background: linear-gradient(90deg, rgb(161, 133, 133), #440a0a);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 10px;
@@ -74,23 +108,23 @@
 
         /* Toggle Button */
         .toggle-button {
-            background: linear-gradient(90deg, #0ff, #8a2be2);
-            color: black;
+            background: linear-gradient(90deg, #800000, #555); /* Dark maroon and grey gradient */
+            color: white;
             border: none;
             padding: 10px 20px;
             border-radius: 20px;
             cursor: pointer;
             font-size: 14px;
             font-weight: bold;
-            transition: transform 0.3s ease, background 0.3s ease;
+            transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
             margin-bottom: 15px;
-            box-shadow: 0px 0px 10px #0ff;
+            box-shadow: 0px 0px 10px #800000; /* Dark maroon shadow */
         }
 
         .toggle-button:hover {
-            background: linear-gradient(90deg, #8a2be2, #0ff);
+            background: linear-gradient(90deg, #722222, #444); /* Slightly darker maroon and grey */
             transform: scale(1.1);
-            box-shadow: 0px 0px 20px #0ff;
+            box-shadow: 0px 0px 20px #722222; /* Darker shadow on hover */
         }
 
         /* Form */
@@ -136,19 +170,19 @@
 
         /* Submit Buttons */
         .form button {
-            background: linear-gradient(90deg, #0ff, #8a2be2);
-            color: black;
+            background: linear-gradient(90deg, #800000, #555); /* Dark maroon and grey gradient */
+            color: white;
             cursor: pointer;
             font-size: 16px;
             font-weight: bold;
-            transition: transform 0.3s ease, background 0.3s ease;
-            box-shadow: 0px 0px 10px #0ff;
+            transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0px 0px 10px #800000; /* Dark maroon shadow */
         }
 
         .form button:hover {
-            background: linear-gradient(90deg, #8a2be2, #0ff);
+            background: linear-gradient(90deg, #722222, #444); /* Slightly darker maroon and grey */
             transform: scale(1.1);
-            box-shadow: 0px 0px 20px #0ff;
+            box-shadow: 0px 0px 20px #722222; /* Darker shadow on hover */
         }
 
         /* Animations */
@@ -174,11 +208,13 @@
     <div class="stars2"></div>
     <div class="stars3"></div>
 
+    <!-- Fixed Header with Site Title and Motto -->
+    <div class="header">
+        <div class="site-title">AIspire</div>
+        <div class="site-moto">"Explore. Learn. Grow."</div>
+    </div>
+
     <div class="container">
-        <header>
-            <img src="https://cdn.dribbble.com/userupload/25788686/file/original-f8eb5d85e91daafe2f8b8accb448ffcf.png?resize=1504x1128&vertical=center" alt="AIspire Logo" class="logo">
-            <h1>AIspire</h1>
-        </header>
         <button id="toggle-button" class="toggle-button">Signup?</button>
         <div class="form-container">
             <form id="login-form" class="form active">
