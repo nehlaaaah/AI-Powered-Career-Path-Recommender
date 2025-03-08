@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIspire Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Montserrat:wght@700&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            background-color: #2C2C2C;
+            font-family: 'Roboto', sans-serif;
+            color: #D3D3D3;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+            text-align: center;
+        }
+
+        .quiz-container {
+            background: rgba(40, 40, 40, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 600px;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            z-index: 2;
+            overflow-y: auto; /* Enable scrolling when content overflows */
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 40px;
+            color: #800000;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 22px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .question {
+            font-size: 18px;
+            margin: 10px 0;
+            text-align: left;
+        }
+
+        .options {
+            margin: 10px 0;
+        }
+
+        .option {
+            display: block;
+            background-color: #333;
+            padding: 10px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .option:hover {
+            background-color: #444;
+        }
+
+        .next-button {
+            background-color: #800000;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .next-button:hover {
+            background-color: #550000;
+        }
+
+        .next-button:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+    <!-- Quiz Container -->
+    <div class="quiz-container">
+        <h1>AIspire Skill & Interest Quiz</h1>
+        <div id="quiz-content">
+            <!-- Quiz Questions will be dynamically added here -->
+        </div>
+        <button class="next-button" onclick="submitQuiz()">Submit Quiz</button>
+    </div>
+
+    <script>
+        // Retrieve selections from localStorage
+        const selectedHS = localStorage.getItem("selectedHS");
+        const selectedStream = localStorage.getItem("selectedStream");
+        const selectedBranch = localStorage.getItem("selectedBranch");
+
+        // Questions based on the selections made
+        const questionsData = {
+            "science": {
+                "btech-engineering": [
+                    {
+                        question: "How confident are you in solving complex mathematical problems?",
+                        options: ["Very Confident", "Somewhat Confident", "Not Confident"],
+                    },
+                    {
+                        question: "Do you enjoy building and working with machines?",
+                        options: ["Yes", "No", "Sometimes"],
+                    },
+                    {
+                        question: "How comfortable are you with programming and coding?",
+                        options: ["Very Comfortable", "Somewhat Comfortable", "Not Comfortable"],
+                    },
+                    {
+                        question: "Do you prefer hands-on experiments and practical work?",
+                        options: ["Yes", "No", "Sometimes"],
+                    },
+                    {
+                        question: "Are you interested in designing software and applications?",
+                        options: ["Yes", "No", "Maybe"],
+                    }
+                ],
+                "bsc-science": [
+                    {
+                        question: "Do you enjoy conducting experiments and learning about the world around you?",
+                        options: ["Yes", "No", "Sometimes"],
+                    },
+                    {
+                        question: "Are you interested in subjects like Biology, Chemistry, or Physics?",
+                        options: ["Yes", "No", "Sometimes"],
+                    },
+                    {
+                        question: "How comfortable are you with theoretical studies?",
+                        options: ["Very Comfortable", "Somewhat Comfortable", "Not Comfortable"],
+                    },
+                    {
+                        question: "Would you prefer working in a lab over working in an office?",
+                        options: ["Yes", "No", "Maybe"],
+                    },
+                    {
+                        question: "Are you passionate about scientific research and discoveries?",
+                        options: ["Yes", "No", "Sometimes"],
+                    }
+                ]
+            },
+            "commerce": {
+                "bcom-commerce": [
+                    {
+                        question: "Do you enjoy analyzing data and working with numbers?",
+                        options: ["Yes", "No", "Sometimes"],
+                    },
+                    {
+                        question: "How interested are you in managing finances?",
+                        options: ["Very Interested", "Somewhat Interested", "Not Interested"],
+                    },
+                    {
+                        question: "Do you enjoy working with business strategies and planning?",
+                        options: ["Yes", "No", "Sometimes"],
+                    },
+                    {
+                        question: "Would you like to work in the field of accounting or finance?",
+                        options: ["Yes", "No", "Maybe"],
+                    },
+                    {
+                        question: "Are you comfortable with solving business-related problems?",
+                        options: ["Very Comfortable", "Somewhat Comfortable", "Not Comfortable"],
+                    }
+                ]
+            },
+            "humanities": {
+                "ba-arts-humanities": [
+                    {
+                        question: "Do you enjoy reading books and understanding human history?",
+                        options: ["Yes", "No", "Sometimes"],
+                    },
+                    {
+                        question: "How passionate are you about social issues and human rights?",
+                        options: ["Very Passionate", "Somewhat Passionate", "Not Passionate"],
+                    },
+                    {
+                        question: "Do you like discussing politics and world affairs?",
+                        options: ["Yes", "No", "Sometimes"],
+                    },
+                    {
+                        question: "Are you interested in studying literature and writing?",
+                        options: ["Yes", "No", "Maybe"],
+                    },
+                    {
+                        question: "Would you like to pursue a career in law or social services?",
+                        options: ["Yes", "No", "Maybe"],
+                    }
+                ]
+            },
+            "vocational": {
+                "bdes-fashion-design": [
+                    {
+                        question: "Do you have a strong sense of creativity and design?",
+                        options: ["Yes", "No", "Sometimes"],
+                    },
+                    {
+                        question: "Are you interested in fashion trends and the fashion industry?",
+                        options: ["Yes", "No", "Maybe"],
+                    },
+                    {
+                        question: "Would you like to work in a creative, hands-on environment?",
+                        options: ["Yes", "No", "Maybe"],
+                    },
+                    {
+                        question: "Do you enjoy sketching and drawing as a hobby?",
+                        options: ["Yes", "No", "Sometimes"],
+                    },
+                    {
+                        question: "Are you interested in sustainable fashion and design?",
+                        options: ["Yes", "No", "Maybe"],
+                    }
+                ]
+            }
+        };
+
+        // Dynamically generate questions based on selected higher secondary education, stream, and branch
+        function generateQuiz() {
+            const quizContent = document.getElementById('quiz-content');
+            const selectedQuestions = questionsData[selectedHS][selectedStream] || [];
+
+            selectedQuestions.forEach((q, index) => {
+                // Create Question Header
+                const questionDiv = document.createElement('div');
+                questionDiv.classList.add('question');
+                questionDiv.innerHTML = `<p>${index + 1}. ${q.question}</p>`;
+
+                // Create Options for the Question
+                const optionsDiv = document.createElement('div');
+                optionsDiv.classList.add('options');
+                q.options.forEach(option => {
+                    const optionDiv = document.createElement('div');
+                    optionDiv.classList.add('option');
+                    optionDiv.innerText = option;
+                    optionsDiv.appendChild(optionDiv);
+                });
+
+                // Append Question and Options to the Quiz Content
+                questionDiv.appendChild(optionsDiv);
+                quizContent.appendChild(questionDiv);
+            });
+        }
+
+        // Call the function to generate the quiz on page load
+        window.onload = generateQuiz;
+
+        // Function to handle quiz submission
+        function submitQuiz() {
+            alert("Quiz submitted! Thank you for completing it.");
+        }
+    </script>
+</body>
+</html>

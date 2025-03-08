@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AIspire Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Montserrat:wght@700&family=Poppins:wght@600&display=swap" rel="stylesheet">
     <style>
         /* Full-Screen Galaxy Background */
         body {
-            background-color: #000;
+            background-color: #2C2C2C; /* Dark gray background */
             font-family: 'Roboto', sans-serif;
-            color: white;
+            color: #D3D3D3; /* Light gray text color */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -20,6 +20,30 @@
             overflow: hidden;
             position: relative;
             text-align: center;
+        }
+
+        /* Site Title */
+        .site-title {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-family: 'Montserrat', sans-serif; /* Bold and stylish font for title */
+            font-size: 3rem;
+            color: #800000; /* Maroon color */
+            font-weight: 700;
+            z-index: 1000;
+        }
+
+        /* Site Motto */
+        .site-moto {
+            position: fixed;
+            top: 60px; /* Adjusted to position below the title */
+            left: 20px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.2rem;
+            color: #fff; /* White color */
+            font-weight: 400;
+            z-index: 1000;
         }
 
         /* Animated Starry Sky */
@@ -57,9 +81,9 @@
         /* Container for dashboard content */
         .dashboard-container {
             text-align: center;
-            background: rgba(30, 30, 30, 0.8);  /* Slight transparent background for dashboard */
+            background: rgba(40, 40, 40, 0.9);  /* Dark maroon background for dashboard */
             padding: 30px;
-            border-radius: 15px;
+            border-radius: 20px;
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
             width: 100%;
             max-width: 500px;
@@ -70,16 +94,20 @@
             z-index: 2;
         }
 
-        h1, h2 {
-            color: #0091EA;
-            font-size: 26px;
-            font-weight: bold;
+        h1 {
+            font-family: 'Poppins', sans-serif; /* Bold stylish font for main heading */
+            font-size: 40px;
+            color: #800000;
+            font-weight: 700;
             margin-bottom: 15px;
             animation: slideUp 1s forwards 1s;
         }
 
         h2 {
+            font-family: 'Poppins', sans-serif; /* Stylish font for subheadings */
             font-size: 22px;
+            color: #fff;
+            font-weight: 600; 
         }
 
         /* Styles for select boxes */
@@ -89,19 +117,21 @@
             margin: 10px 0;
             font-size: 16px;
             background-color: #333333;
-            color: #e0e0e0;
+            color: #D3D3D3;
             border: 1px solid #444444;
             border-radius: 5px;
             transition: border-color 0.3s ease;
+            font-family: 'Roboto', sans-serif;
         }
 
         select:focus {
-            border-color: #0091EA;
+            border-color: #800000; /* Maroon focus color */
             outline: none;
         }
 
-        .ai-button {
-            background-color: #4CAF50;
+        /* Create Next Button */
+        .next-button {
+            background-color: #800000; /* Maroon button color */
             color: white;
             border: none;
             padding: 12px 20px;
@@ -109,27 +139,33 @@
             cursor: pointer;
             border-radius: 5px;
             margin-top: 15px;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
             height: 50px;
+            font-family: 'Poppins', sans-serif; /* Stylish and bold font for button */
+            font-weight: 700; /* Bold font for button */
+            text-decoration: none; /* Remove underline */
         }
 
-        .ai-button:hover {
-            background-color: #388E3C;
+        /* Hover effects */
+        .next-button:hover {
+            background-color: #550000; /* Darker maroon hover color */
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+        }
+
+        .next-button:active {
+            transform: scale(0.98);
         }
 
         #recommendation-result {
             margin-top: 20px;
             font-size: 18px;
             font-weight: bold;
-            color: #81C784;
-        }
-
-        .ai-button i {
-            font-size: 20px;
+            color: #81C784; /* Greenish color for the result */
         }
 
         /* Animation Keyframes */
@@ -165,7 +201,7 @@
             }
 
             h1 {
-                font-size: 22px;
+                font-size: 26px;
             }
 
             h2 {
@@ -178,7 +214,7 @@
                 padding: 10px;
             }
 
-            .ai-button {
+            .next-button {
                 font-size: 14px;
                 padding: 10px 18px;
                 height: 45px;
@@ -193,9 +229,13 @@
     <div class="stars3"></div>
     <div class="nebula"></div>
 
+    <!-- Site Title and Motto -->
+    <div class="site-title">AIspire</div>
+    <div class="site-moto">Explore.Learn.Grow</div>
+
     <!-- Main Dashboard Container -->
     <div class="dashboard-container">
-        <h1>Welcome to AIspire</h1>
+        <h1>Choose Your Path</h1>
 
         <h2>Select Higher Secondary Education</h2>
         <select id="higher-secondary-select" onchange="updateEducationStreams()">
@@ -211,9 +251,10 @@
         <h2>Select Specific Branch for Further Education</h2>
         <select id="branch-select"></select>
 
-        <!-- AI Generate Button at the bottom with icon -->
-        <button class="ai-button" onclick="showRecommendation()">
-            <i class="fa fa-robot"></i> AI Generate
+        <!-- Next Button -->
+        <button class="next-button" onclick="saveSelectionsAndNavigate()">
+            <span>Next</span>
+            <i class="fa fa-arrow-right"></i>
         </button>
 
         <div id="recommendation-result" style="display:none;"></div>
@@ -270,20 +311,25 @@
             });
         }
 
-        function showRecommendation() {
-            const hs = document.getElementById("higher-secondary-select").value;
-            const educationStream = document.getElementById("education-stream-select").value;
-            const branch = document.getElementById("branch-select").value;
+        // Save selections and navigate to quiz page
+        function saveSelectionsAndNavigate() {
+            const hsSelect = document.getElementById("higher-secondary-select");
+            const educationSelect = document.getElementById("education-stream-select");
+            const branchSelect = document.getElementById("branch-select");
 
-            const recommendation = document.getElementById("recommendation-result");
-            recommendation.style.display = "block";
-            recommendation.innerHTML = `<p>Your career recommendation: ${hs.toUpperCase()} → ${educationStream.replace(/-/g, " ").toUpperCase()} → ${branch.replace(/-/g, " ").toUpperCase()}</p>`;
+            const selectedHS = hsSelect.value;
+            const selectedStream = educationSelect.value;
+            const selectedBranch = branchSelect.value;
+
+            localStorage.setItem("selectedHS", selectedHS);
+            localStorage.setItem("selectedStream", selectedStream);
+            localStorage.setItem("selectedBranch", selectedBranch);
+
+            window.location.href = "quiz.html";
         }
 
+        // Initialize the page by triggering education stream updates based on default selection
         window.onload = updateEducationStreams;
     </script>
-
-    <!-- Include FontAwesome for the AI icon -->
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </body>
 </html>
